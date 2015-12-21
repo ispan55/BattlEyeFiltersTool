@@ -1,0 +1,126 @@
+﻿<!--
+	BattlEye Filters Tool
+	https://github.com/SpiReCZ/BattlEyeFiltersTool
+	© by SpiRe 2015
+
+	This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+	To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+-->
+<Controls:MetroWindow x:Class="BattlEyeFiltersTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:BattlEyeFiltersTool"
+        mc:Ignorable="d"
+        Title="BattlEye Filters Tool"
+        Height="350" Width="525" 
+        ResizeMode="CanMinimize"
+        Background="#FF2E3036"
+        WindowTitleBrush="#FF1F2025"
+        SaveWindowPosition="True"
+        TitleCaps="False"
+        BorderThickness="0"
+        GlowBrush="#FF1F2025"
+        RightWindowCommandsOverlayBehavior="Always"
+        NonActiveBorderBrush="{x:Null}"
+        NonActiveGlowBrush="Black"
+        NonActiveWindowTitleBrush="#FF2E3036"
+        ShowIconOnTitleBar="True" Icon="beft.ico"
+>
+    <Grid>
+        <TabControl x:Name="tabControl" Height="321" VerticalAlignment="Top" Margin="0,0,0.4,-0.2">
+            <TabItem Header="Merger">
+                <Grid Margin="0,0,-0.2,0">
+                    <ListView x:Name="listView_FileList" HorizontalAlignment="Left" Margin="10,19,0,10" Width="178" Background="#FF1F2025" BorderBrush="{x:Null}">
+                        <ListView.Resources>
+                            <Style TargetType="{x:Type GridViewColumnHeader}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </Style>
+                            <DataTemplate x:Key="IconTemplate">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.Resources>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <TextBlock x:Name="pathTextBlock" Text="Unknown Path, please select Path" Margin="32,0,0,0" Foreground="White" TextTrimming="CharacterEllipsis" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="391"/>
+                    <Button x:Name="selectFolder" Content="Browse" Margin="428,0,10.2,243" Click="selectFolder_click" Background="#FF1F2025" BorderBrush="#FF1F2025" Height="26" VerticalAlignment="Bottom"/>
+                    <Button x:Name="reloadKnownBeFiles" Content="Reload" Margin="428,0,10.2,210" VerticalAlignment="Bottom" RenderTransformOrigin="0.669,-0.711" IsEnabled="False" Click="reloadKnownBeFiles_Click" Visibility="Visible" Background="#FF1F2025" BorderBrush="#FF1F2025"/>
+                    <Button x:Name="loadFiles" Content="Load Files" Margin="0,0,170,10" Click="loadFiles_click" Background="#FF1F2025" BorderBrush="#FF1F2025" HorizontalAlignment="Right" Width="75" Height="26" VerticalAlignment="Bottom"/>
+                    <Button x:Name="flushFiles" Content="Flush Files" Margin="0,0,90,10" Click="flushFiles_click" Background="#FF1F2025" BorderBrush="#FF1F2025" IsEnabled="False" RenderTransformOrigin="0.52,1.055" HorizontalAlignment="Right" Width="75" Height="26" VerticalAlignment="Bottom"/>
+                    <Button x:Name="saveFiles" Content="Save Files" Margin="0,0,10,10" Click="saveFiles_click" Background="#FF1F2025" BorderBrush="#FF1F2025" RenderTransformOrigin="2.835,0.367" IsEnabled="False" Height="26" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+                    <CheckBox x:Name="knownBeFilesCheckBox" Content="use knownBeFiles.txt list only" Margin="244,45,0,0" BorderBrush="White" Controls:ControlsHelper.MouseOverBorderBrush="#FF7F7F7F" Checked="knownBeFilesCheckBox_Checked" Unchecked="knownBeFilesCheckBox_Unchecked" IsChecked="True" Controls:ToggleButtonHelper.ContentDirection="RightToLeft" Height="18" VerticalAlignment="Top" HorizontalAlignment="Left" Width="179"/>
+                    <TextBlock x:Name="pathTextBlock_Copy" Text="DIR:" Margin="9,0,0,0" Foreground="White" TextTrimming="CharacterEllipsis" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="23"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Compiler" IsEnabled="False">
+                <Grid/>
+            </TabItem>
+            <TabItem Header="Updater" IsEnabled="False">
+                <Grid/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button x:Name="donateBtn" Click="donate_click">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="15" Height="15"
+                        Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_paypal}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Donate"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="webBtn" Click="github_click">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="15" Height="15"
+                        Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_globe}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="GitHub"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="infoBtn" Click="info_click">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="7.5" Height="15"
+                        Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Info"/>
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout x:Name="infoFlyout"
+                             AreAnimationsEnabled="True"
+                             Margin="0 0 0 0"
+                             Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Controls:MetroWindow}, Path=ActualWidth}"
+                             Header="Informations"
+                             Position="Right"
+                             FocusedElement="{Binding ElementName=firstTB}"
+                             Background="#FF2E3036"
+                             >
+                <Frame Source="InfoFlyout.xaml"/>
+                <!-- <Frame Source="InfoFlyout.xaml"/> -->
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+</Controls:MetroWindow>

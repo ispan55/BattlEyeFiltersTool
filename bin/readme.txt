@@ -1,4 +1,4 @@
-# BattlEye Filters Tool
+BattlEye Filters Tool
 
 https://github.com/SpiReCZ/BattlEyeFiltersTool
 © by SpiRe 2015
